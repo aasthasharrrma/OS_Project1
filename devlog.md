@@ -11,3 +11,9 @@ I set up the repository structure with separate Java source files, a Makefile, a
 I implemented the logger to take its log-file name as a command-line argument and to read messages until `QUIT`. It separates the first word as the action and writes each event with the required timestamp format. I also implemented the encryption program with `PASS`, `ENCRYPT`, `DECRYPT`, and `QUIT` commands and `RESULT` or `ERROR` responses.
 
 The Vigenere logic uses `A` as zero and repeats the passkey as needed. I checked the example from the assignment: encrypting `HELLO` with passkey `HELLO` produces `OIWWC`. The encryption process keeps its passkey in memory for the current run, as required. I am ready to connect both child processes to the interactive driver and test the complete pipeline.
+
+## October 13, 2026 - Session 3: driver behavior and testing
+
+I connected the driver to both child programs using `ProcessBuilder` and the processes' standard streams. The driver starts both processes, sends logger messages without reading output, and sends encryption commands while reading exactly one response line. This keeps the two pipe conversations separate and avoids exposing passwords in logs.
+
+I compiled the project and tested the required missing-password response, the Vigenere example, decryption, invalid character input, history display, and clean shutdown. I found that an invalid input was displayed to the user but was not included in the activity log, so I added a concise error log entry without recording the rejected text. The final history behavior stores valid encryption/decryption inputs and successful results, but not passwords.
