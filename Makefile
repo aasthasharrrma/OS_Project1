@@ -7,4 +7,4 @@ run: build
 	java Driver activity.log
 
 clean:
-	rm -f *.class activity.log
+	rm -f *.class *.log
