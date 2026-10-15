@@ -17,3 +17,9 @@ The Vigenere logic uses `A` as zero and repeats the passkey as needed. I checked
 I connected the driver to both child programs using `ProcessBuilder` and the processes' standard streams. The driver starts both processes, sends logger messages without reading output, and sends encryption commands while reading exactly one response line. This keeps the two pipe conversations separate and avoids exposing passwords in logs.
 
 I compiled the project and tested the required missing-password response, the Vigenere example, decryption, invalid character input, history display, and clean shutdown. I found that an invalid input was displayed to the user but was not included in the activity log, so I added a concise error log entry without recording the rejected text. The final history behavior stores valid encryption/decryption inputs and successful results, but not passwords.
+
+## October 14, 2026 - Session 4: requirement review
+
+I returned to the project to review it against the written requirements instead of only relying on the first end-to-end run. My plan is to make a short checklist that maps each driver feature to a concrete interaction, then run the important paths again. I especially want to verify the case-insensitive input rule, the history exit path, and the rule that passwords must not appear in the log file.
+
+I added the checklist and ran those interactions. Encrypting lowercase `hello` produced `OIWWC`, matching the uppercase example. Selecting history and entering `0` correctly returned to the new-input prompt. The driver rejected `Hello!`, recorded a general validation error, and did not place the rejected text in the log. I also inspected the final log and confirmed that it contained start, command, result/error, and exit events without any password or encryption text.
