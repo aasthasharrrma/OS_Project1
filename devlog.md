@@ -24,7 +24,7 @@ I returned to the project to review it against the written requirements instead 
 
 I added the checklist and ran those interactions. Encrypting lowercase `hello` produced `OIWWC`, matching the uppercase example. Selecting history and entering `0` correctly returned to the new-input prompt. The driver rejected `Hello!`, recorded a general validation error, and did not place the rejected text in the log. I also inspected the final log and confirmed that it contained start, command, result/error, and exit events without any password or encryption text.
 
-## October 16, 2026 - Session 5: final component check
+## October 16, 2026 - Session 5: component verification
 
 Before submission, I planned one final review that tests the separate programs as well as the full driver flow. I wanted to confirm that the encryption program handles its own command protocol correctly, that the logger independently writes the required timestamp format, and that the driver still works when the menu commands and entered letters use different cases.
 
