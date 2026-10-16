@@ -23,3 +23,9 @@ I compiled the project and tested the required missing-password response, the Vi
 I returned to the project to review it against the written requirements instead of only relying on the first end-to-end run. My plan is to make a short checklist that maps each driver feature to a concrete interaction, then run the important paths again. I especially want to verify the case-insensitive input rule, the history exit path, and the rule that passwords must not appear in the log file.
 
 I added the checklist and ran those interactions. Encrypting lowercase `hello` produced `OIWWC`, matching the uppercase example. Selecting history and entering `0` correctly returned to the new-input prompt. The driver rejected `Hello!`, recorded a general validation error, and did not place the rejected text in the log. I also inspected the final log and confirmed that it contained start, command, result/error, and exit events without any password or encryption text.
+
+## October 16, 2026 - Session 5: final component check
+
+Before submission, I planned one final review that tests the separate programs as well as the full driver flow. I wanted to confirm that the encryption program handles its own command protocol correctly, that the logger independently writes the required timestamp format, and that the driver still works when the menu commands and entered letters use different cases.
+
+The encryption program returned the expected missing-passkey error, encrypted HELLO with KEY to RIJVS, decrypted it back to HELLO, and rejected an unknown command. The logger wrote correctly formatted START and RESULT entries. In the full driver run, uppercase menu commands and lowercase text worked correctly, history selection decrypted RIJVS back to HELLO, and the final driver log did not contain the passkey or encrypted text. I cleaned the generated test files after the run and found no new issues.
