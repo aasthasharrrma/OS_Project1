@@ -35,9 +35,12 @@ public class Logger {
 
     private static void writeEntry(BufferedWriter log, String message) throws IOException {
         String trimmed = message.trim();
-        int split = trimmed.indexOf(' ');
-        String action = split == -1 ? trimmed : trimmed.substring(0, split);
-        String details = split == -1 ? "" : trimmed.substring(split + 1).trim();
+        int split = 0;
+        while (split < trimmed.length() && !Character.isWhitespace(trimmed.charAt(split))) {
+            split++;
+        }
+        String action = trimmed.substring(0, split);
+        String details = split == trimmed.length() ? "" : trimmed.substring(split).trim();
         log.write(LocalDateTime.now().format(TIME) + " [" + action + "] " + details);
         log.newLine();
         log.flush();
